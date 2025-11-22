@@ -12,22 +12,13 @@ class Television:
         self._channel: int = Television.MIN_CHANNEL
 
     def power(self) -> None:
-        """
-        Toggles power status
-        """
         self._status = not self._status
 
     def mute(self) -> None:
-        """
-        toggles mute when tv powered on
-        """
         if self._status:
             self._muted = not self._muted
 
     def channel_up(self) -> None:
-        """
-        increases tv channel, cycling to min if at max
-        """
         if self._status:
             if self._channel == Television.MAX_CHANNEL:
                 self._channel = Television.MIN_CHANNEL
@@ -35,10 +26,6 @@ class Television:
                 self._channel += 1
 
     def channel_down(self) -> None:
-        """
-        increase tv channel, cycling to max if at min
-
-        """
         if self._status:
             if self._channel == Television.MIN_CHANNEL:
                 self._channel = Television.MAX_CHANNEL
@@ -46,10 +33,6 @@ class Television:
                 self._channel -= 1
 
     def volume_up(self) -> None:
-        """
-        increases tv volume
-        if muted, unmute first
-        """
         if self._status:
             if self._muted:
                 self._muted = False
@@ -57,10 +40,6 @@ class Television:
                 self._volume += 1
 
     def volume_down(self) -> None:
-        """
-        decreases tv volume
-        if muted, unmute first
-        """
         if self._status:
             if self._muted:
                 self._muted = False
@@ -68,8 +47,5 @@ class Television:
                 self._volume -= 1
 
     def __str__(self) -> str:
-        """
-        returns a string representation of the television status
-        """
         return f"Power = {self._status}, Channel = {self._channel}, Volume = {self._volume}"
 
