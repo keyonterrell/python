@@ -10,6 +10,7 @@ class Television:
         self._muted: bool = False
         self._volume: int = Television.MIN_VOLUME
         self._channel: int = Television.MIN_CHANNEL
+        self._saved_volume: int = self._volume
 
     def power(self) -> None:
         """
@@ -19,10 +20,16 @@ class Television:
 
     def mute(self) -> None:
         """
-        toggles mute when tv powered on
+        toggles mute when tv powered on and saves volume
         """
         if self._status:
-            self._muted = not self._muted
+            if self._status:
+                self._muted = not self._muted
+                if self._muted:
+                    self._saved_volume = self._volume
+                    self._volume = 0
+                else:
+                    self._volume = self._saved_volume
 
     def channel_up(self) -> None:
         """
@@ -52,7 +59,7 @@ class Television:
         """
         if self._status:
             if self._muted:
-                self._muted = False
+                self.mute()
             if self._volume < Television.MAX_VOLUME:
                 self._volume += 1
 
@@ -63,7 +70,7 @@ class Television:
         """
         if self._status:
             if self._muted:
-                self._muted = False
+                self.mute()
             if self._volume > Television.MIN_VOLUME:
                 self._volume -= 1
 
